@@ -27,4 +27,11 @@ public class MathPiTests {
         this.mvc.perform(get("/Math/Pi").accept(MediaType.TEXT_PLAIN))
                 .andExpect(status().isNotFound());
     }
+
+    @Test
+    void calculateAddOperation() throws Exception {
+        this.mvc.perform(get("/math/calculate?operation=add&x=3&y=6")
+                .accept(MediaType.TEXT_PLAIN))
+                .andExpect(content().string("18"));
+    }
 }
