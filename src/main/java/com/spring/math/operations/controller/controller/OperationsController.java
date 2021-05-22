@@ -69,4 +69,20 @@ public class OperationsController {
 
         return myMathService.sum(n);
     }
+
+    @RequestMapping(value ="/math/volume/{length}/{width}/{height}")
+    public String rectangleVolume(@PathVariable Integer length, @PathVariable Integer width, @PathVariable Integer height )
+    {
+        Integer volume = ( length * width * height );
+        StringBuilder str = new StringBuilder();
+        str.append("The volume of a ");
+        str.append(length);
+        str.append("x");
+        str.append(width);
+        str.append("x");
+        str.append(height);
+        str.append(" rectangle is ");
+        str.append(volume);
+        return str.toString();
+    }
 }

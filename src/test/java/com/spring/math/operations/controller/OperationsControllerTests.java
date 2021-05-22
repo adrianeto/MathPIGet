@@ -8,9 +8,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(OperationsController.class)
@@ -36,8 +35,33 @@ public class OperationsControllerTests {
     public void testMultiplyOperation()throws Exception{
         this.mockMvc.perform(get("/math2/calculate?operations=multiply&x=3&y=6")
                 .accept(MediaType.TEXT_PLAIN))
+
                 .andExpect(content().string("3 * 6 = 18")
                 );
+    }
+
+    @Test
+    public void testRectangleVolumeGET()throws Exception{
+        this.mockMvc.perform(get ("/math/volume/3/4/5")
+                .accept(MediaType.TEXT_PLAIN))
+                .andExpect(status().isOk())
+                .andExpect(content().string("The volume of a 3x4x5 rectangle is 60"));
+    }
+
+    @Test
+    public void testRectangleVolumePOST()throws Exception{
+        this.mockMvc.perform(post ("/math/volume/3/4/5")
+                .accept(MediaType.TEXT_PLAIN))
+                .andExpect(status().isOk())
+                .andExpect(content().string("The volume of a 3x4x5 rectangle is 60"));
+    }
+
+    @Test
+    public void testRectangleVolumePATCH()throws Exception{
+        this.mockMvc.perform(patch ("/math/volume/3/4/5")
+                .accept(MediaType.TEXT_PLAIN))
+                .andExpect(status().isOk())
+                .andExpect(content().string("The volume of a 3x4x5 rectangle is 60"));
     }
 
 
